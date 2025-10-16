@@ -1,38 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
+import Image from "next/image";
+
+import Header from "@/components/Header";
+import KPICards from "@/components/KPICards";
+import { ChartShell } from "@/components/ChartShell";
+
 import type { ChatMessage, ChatResponse, KpiSummary } from "@/types";
 import { apiGet, apiPost } from "@/lib/api";
 import { getSessionId } from "@/lib/session";
 
-import Image from "next/image";
-
-// TEMP: placeholders until you migrate components
-function KPICardsPlaceholder({ data }: { data: KpiSummary | null }) {
-  return (
-    <div className="col-span-1 grid gap-4 h-full">
-      <div className="bg-white rounded-xl p-4 shadow text-center">
-        <h3 className="text-sm font-medium text-gray-600">Revenue (YTD)</h3>
-        <p className="text-xl font-bold text-gray-900">
-          {data ? Math.round(data.revenue_ytd).toLocaleString("sv-SE") : "—"}
-        </p>
-      </div>
-      <div className="bg-white rounded-xl p-4 shadow text-center">
-        <h3 className="text-sm font-medium text-gray-600">Expenses (YTD)</h3>
-        <p className="text-xl font-bold text-gray-900">
-          {data ? Math.round(data.expenses_ytd).toLocaleString("sv-SE") : "—"}
-        </p>
-      </div>
-      <div className="bg-white rounded-xl p-4 shadow text-center">
-        <h3 className="text-sm font-medium text-gray-600">Net Result (YTD)</h3>
-        <p className="text-xl font-bold text-gray-900">
-          {data ? Math.round(data.net_result_ytd).toLocaleString("sv-SE") : "—"}
-        </p>
-      </div>
-    </div>
-  );
-}
-
+// Placeholder chat container (no scrolling, no "thinking" state)
 function ChatContainerPlaceholder({
   messages,
   isThinking,
@@ -144,25 +124,7 @@ export default function Page() {
     <div className="min-h-dvh grid grid-rows-[auto,1fr]"> {/* 🔧 grid (not gird) and 2 rows */}
 
       {/* Header */}
-      <header className="row-start-1 row-end-2 flex items-center justify-between gap-4 bg-white border-b border-gray-300 p-4">
-        <div className="flex items-center space-x-4">
-          <Image 
-            src="/logo.png" 
-            alt="Logo" 
-            width={160}
-            height={40}
-            className="h-10 w-auto object-contain" 
-            priority
-          />
-          <div className="h-8 w-px bg-gray-300" />
-          <h1 className="text-2xl font-bold text-gray-800">
-            {process.env.NEXT_PUBLIC_APP_NAME || "Finance AI Agent"}
-          </h1>
-        </div>
-        <button className="h-10 w-10 rounded-full bg-gray-200 text-black font-semibold flex items-center justify-center hover:bg-gray-700 hover:text-white transition">
-          A
-        </button>
-      </header>
+      <Header className="row-start-1 row-end-2 shadow" />
 
       {/* Main layout (fills remaining height) */}
       <div className="row-start-2 row-end-3 overflow-hidden p-4">
@@ -170,17 +132,36 @@ export default function Page() {
         <div className="h-full w-full flex gap-6 min-h-0">
 
           {/* Dashboard Area */}
-          <section className="w-[68%] bg-white rounded-2xl shadow p-4 border border-gray-300 flex flex-col min-h-0">
-            {/* 🔧 Avoid hard vh calc; let it grow with flex */}
+          <section className="w-[68%] bg-white rounded-2xl shadow p-4 border border-gray-300 flex flex-col min-h-0"> 
             <div className="grid grid-cols-5 gap-4 flex-1 min-h-0">
-              <KPICardsPlaceholder data={kpiData} />
 
+              {/* KPI Cards */}
+              <KPICards data={kpiData} />
+
+              {/* Chart Shell */}
               <div className="col-span-4 flex flex-col gap-4 min-h-0">
-                <div className="flex-1 min-h-0">
-                  <div className="h-full bg-gray-50 border border-dashed border-gray-300 rounded-xl flex items-center justify-center text-gray-500">
-                    Chart goes here
-                  </div>
-                </div>
+
+                <ChartShell className="flex-1 min-h-0">
+                  <ChartShell.Header
+                    title="Chart title"
+                    subtitle="Chart subtitle or description"
+                    // Right-side controls could go here
+                  />
+                
+                  <ChartShell.Body>
+                    {/* Replace with Recharts later */}
+                    <div className="h-full bg-gray-50 border border-dashed border-gray-300 rounded-xl flex items-center justify-center text-gray-500">
+                      Chart goes here
+                    </div>
+                  </ChartShell.Body>
+
+                  <ChartShell.Footer>
+                    <div className="text-xs text-gray-500">
+                      Footer info or controls could go here
+                    </div>
+                  </ChartShell.Footer>
+                </ChartShell>
+
               </div>
             </div>
           </section>

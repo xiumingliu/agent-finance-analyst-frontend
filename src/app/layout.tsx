@@ -2,8 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Next.js Tailwind Template',
-  description: 'Minimal Next.js + Tailwind starter deployed to Azure Web App'
+  title: 'Emble Finance AI Agent',
+  description: 'Insights and actions from your financial data using AI',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
