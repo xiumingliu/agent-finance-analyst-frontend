@@ -51,7 +51,7 @@ ChartShell.Header = function Header({
           </p>
         )}
       </div>
-      {children ? <div className="ml-auto">{children}</div> : null}
+      {children ? <div className="ml-auto flex items-center gap-2 min-w-0 overflow-hidden">{children}</div> : null}
     </div>
   );
 };
@@ -61,8 +61,8 @@ type ChartShellBodyProps = { children?: ReactNode } & HTMLAttributes<HTMLDivElem
 
 ChartShell.Body = function Body({ children, className, ...rest }: ChartShellBodyProps) {
   return (
-    <div className={clsx("px-4 min-h-0", className)} {...rest}>
-      <div className="h-full min-h-[240px]">{children}</div>
+    <div className={clsx("px-4 min-h-0 overflow-hidden", className)} {...rest}>
+      <div className="h-full my-2 min-h-[240px]">{children}</div>
     </div>
   );
 };

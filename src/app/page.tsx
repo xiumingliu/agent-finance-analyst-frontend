@@ -9,6 +9,7 @@ import KPICards from "@/components/KPICards";
 import { ChartShell } from "@/components/ChartShell";
 import ChatContainer from "@/components/ChatContainer";
 import ChatInput from "@/components/ChatInput";
+import AccountGroupChart from "@/components/AccountGroupChart";
 
 import type { ChatMessage, ChatResponse, KpiSummary } from "@/types";
 import { apiGet, apiPost } from "@/lib/api";
@@ -108,28 +109,9 @@ export default function Page() {
               <KPICards data={kpiData} />
 
               {/* Chart Shell */}
-              <div className="col-span-4 flex flex-col gap-4 min-h-0">
+              <div className="col-span-4 flex flex-col gap-4 min-h-0 min-w-0">
 
-                <ChartShell className="flex-1 min-h-0">
-                  <ChartShell.Header
-                    title="Chart title"
-                    subtitle="Chart subtitle or description"
-                    // Right-side controls could go here
-                  />
-                
-                  <ChartShell.Body>
-                    {/* Replace with Recharts later */}
-                    <div className="h-full bg-gray-50 border border-dashed border-gray-300 rounded-xl flex items-center justify-center text-gray-500">
-                      Chart goes here
-                    </div>
-                  </ChartShell.Body>
-
-                  <ChartShell.Footer>
-                    <div className="text-xs text-gray-500">
-                      Footer info or controls could go here
-                    </div>
-                  </ChartShell.Footer>
-                </ChartShell>
+                <AccountGroupChart />
 
               </div>
             </div>

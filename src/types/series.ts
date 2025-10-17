@@ -1,15 +1,10 @@
-export interface TimePoint {
-  date: string;     // "YYYY-MM" (or "YYYY-MM-DD" if you switch to daily)
+export type SeriesPoint = {
+  date: string;      // "YYYY-MM"
   amount: number;
   amountMA: number;
-}
+};
 
-export interface SeriesMeta {
-  group: string | null;
-  window: number;   // MA window (months)
-}
-
-export interface SeriesResponse {
-  series: TimePoint[];
-  meta: SeriesMeta;
-}
+export type SeriesResponse = {
+  series: SeriesPoint[];
+  meta: { group: string | null; window: number };
+};
