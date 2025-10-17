@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import KPICards from "@/components/KPICards";
 import { ChartShell } from "@/components/ChartShell";
 import ChatContainer from "@/components/ChatContainer";
+import ChatInput from "@/components/ChatInput";
 
 import type { ChatMessage, ChatResponse, KpiSummary } from "@/types";
 import { apiGet, apiPost } from "@/lib/api";
@@ -140,7 +141,12 @@ export default function Page() {
             <div className="flex-1 min-h-0 overflow-hidden">
               <ChatContainer messages={messages} isThinking={isThinking} />
             </div>
-            <ChatInputPlaceholder onSend={handleSendMessage} />
+
+            <ChatInput
+              onSend={handleSendMessage}
+              isThinking={isThinking}
+              // onStop={() => controller.abort()} // optional later
+            />
           </aside>
 
         </div>

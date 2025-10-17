@@ -43,9 +43,9 @@ export default function ChatContainer({ messages, isThinking, className }: ChatC
           <div key={i} className={clsx("mb-3", isUser ? "text-right" : "text-left")}>
             <div
               className={clsx(
-                "inline-block max-w-[80%] px-3 py-2 rounded-2xl whitespace-pre-wrap align-top",
+                "inline-block max-w-[80%] px-3 py-2 rounded-lg whitespace-pre-wrap align-top",
                 isUser
-                  ? "bg-gray-600 text-white"
+                  ? "bg-gray-900 text-white"
                   : "bg-gray-100 text-gray-900"
               )}
             >
