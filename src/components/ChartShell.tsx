@@ -11,9 +11,9 @@ export function ChartShell({
   return (
     <div
       className={clsx(
-        "rounded-2xl shadow border border-gray-300",
+        "rounded-2xl shadow border border-gray-100",
         "bg-white",
-        "grid grid-rows-[auto,1fr,auto] min-h-0",
+        "grid grid-rows-[auto,1fr,auto] min-h-0 overflow-hidden",
         "gap-y-3",
         className
       )}
@@ -62,7 +62,7 @@ type ChartShellBodyProps = { children?: ReactNode } & HTMLAttributes<HTMLDivElem
 ChartShell.Body = function Body({ children, className, ...rest }: ChartShellBodyProps) {
   return (
     <div className={clsx("px-4 min-h-0", className)} {...rest}>
-      <div className="h-full my-2 min-h-[240px]">{children}</div>
+      <div className="h-full min-h-[240px]">{children}</div>
     </div>
   );
 };

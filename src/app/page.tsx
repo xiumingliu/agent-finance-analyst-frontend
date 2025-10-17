@@ -7,43 +7,11 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import KPICards from "@/components/KPICards";
 import { ChartShell } from "@/components/ChartShell";
+import ChatContainer from "@/components/ChatContainer";
 
 import type { ChatMessage, ChatResponse, KpiSummary } from "@/types";
 import { apiGet, apiPost } from "@/lib/api";
 import { getSessionId } from "@/lib/session";
-
-// Placeholder chat container (no scrolling, no "thinking" state)
-function ChatContainerPlaceholder({
-  messages,
-  isThinking,
-}: {
-  messages: ChatMessage[];
-  isThinking: boolean;
-}) {
-  return (
-    <div className="flex-1 overflow-auto pr-2">
-      {messages.map((m, i) => (
-        <div key={i} className={`mb-3 ${m.sender === "user" ? "text-right" : "text-left"}`}>
-          <div
-            className={`inline-block px-3 py-2 rounded-xl ${
-              m.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-800"
-            }`}
-          >
-            <pre className="whitespace-pre-wrap">{m.text}</pre>
-            {m.plot && (
-              <img
-                src={`data:image/png;base64,${m.plot}`}
-                alt="plot"
-                className="mt-2 rounded"
-              />
-            )}
-          </div>
-        </div>
-      ))}
-      {isThinking && <div className="text-sm text-gray-500">Thinking…</div>}
-    </div>
-  );
-}
 
 function ChatInputPlaceholder({
   onSend,
@@ -121,19 +89,19 @@ export default function Page() {
   }
 
   return (
-    <div className="min-h-dvh grid grid-rows-[auto,1fr]"> {/* 🔧 grid (not gird) and 2 rows */}
+    <div className="h-full grid grid-rows-[auto,1fr]"> {/* 🔧 grid (not gird) and 2 rows */}
 
       {/* Header */}
       <Header className="row-start-1 row-end-2 shadow" />
 
       {/* Main layout (fills remaining height) */}
-      <div className="row-start-2 row-end-3 overflow-hidden p-4">
+      <div className="row-start-2 row-end-3 min-h-0 p-4">
         {/* 🔧 Make this a flex row that fills the width/height */}
-        <div className="h-full w-full flex gap-6 min-h-0">
+        <div className="h-full w-full flex gap-6">
 
           {/* Dashboard Area */}
-          <section className="w-[68%] bg-white rounded-2xl shadow p-4 border border-gray-300 flex flex-col min-h-0"> 
-            <div className="grid grid-cols-5 gap-4 flex-1 min-h-0">
+          <section className="w-[68%] bg-white rounded-2xl shadow p-4 border border-gray-300 flex flex-col min-h-0 overflow-hidden"> 
+            <div className="grid grid-cols-5 gap-4 flex-1 min-h-0 overflow-hidden">
 
               {/* KPI Cards */}
               <KPICards data={kpiData} />
@@ -167,9 +135,10 @@ export default function Page() {
           </section>
 
           {/* Chat Area */}
-          <aside className="flex-1 bg-white rounded-2xl shadow p-4 border border-gray-300 flex flex-col min-h-0">
-            <div className="flex-1 min-h-0 overflow-auto">
-              <ChatContainerPlaceholder messages={messages} isThinking={isThinking} />
+          <aside className="flex-1 bg-white rounded-2xl shadow p-4 border border-gray-300 
+                            flex flex-col min-h-0 overflow-hidden">
+            <div className="flex-1 min-h-0 overflow-hidden">
+              <ChatContainer messages={messages} isThinking={isThinking} />
             </div>
             <ChatInputPlaceholder onSend={handleSendMessage} />
           </aside>
