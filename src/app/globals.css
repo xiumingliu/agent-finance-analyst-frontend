@@ -6,3 +6,9 @@
 :root {
   color-scheme: light;
 }
+
+/* Remove focus outline inside our chart area, but only for mouse focus targets */
+.chart-focus-reset :where(svg, .recharts-wrapper, .recharts-surface):focus,
+.chart-focus-reset :where(svg, .recharts-wrapper, .recharts-surface):focus-visible {
+  outline: none !important;
+}

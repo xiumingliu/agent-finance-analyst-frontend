@@ -61,11 +61,18 @@ type ChartShellBodyProps = { children?: ReactNode } & HTMLAttributes<HTMLDivElem
 
 ChartShell.Body = function Body({ children, className, ...rest }: ChartShellBodyProps) {
   return (
-    <div className={clsx("px-4 min-h-0 overflow-hidden", className)} {...rest}>
-      <div className="h-full my-2 min-h-[240px]">{children}</div>
+    <div className={clsx("px-4 min-h-0 flex flex-col", className)} {...rest}>
+      {/* This wrapper takes all available vertical space */}
+      <div className="flex-1 min-h-0">
+        {/* Focus reset: prevent blue outline in the chart area */}
+        <div className="h-full chart-focus-reset" tabIndex={-1}>
+          {children}
+        </div>
+      </div>
     </div>
   );
 };
+
 
 // Footer
 type ChartShellFooterProps = { children?: ReactNode } & HTMLAttributes<HTMLDivElement>;
