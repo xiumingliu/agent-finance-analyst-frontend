@@ -31,6 +31,12 @@ jobs:
           api_location: ""        # no Functions
           output_location: "out"     # IMPORTANT: leave empty for Next.js
           node_version: "20"      # <- explicit pin for the action/Oryx
+          # Force pnpm and a clean deterministic install
+          app_build_command: >
+            corepack enable &&
+            corepack prepare pnpm@9.7.1 --activate &&
+            pnpm install --frozen-lockfile &&
+            pnpm run build
         env:
           # Your frontend needs this at runtime
           NEXT_PUBLIC_API_BASE: "https://finance-agent.politepebble-62c55b82.swedencentral.azurecontainerapps.io"
