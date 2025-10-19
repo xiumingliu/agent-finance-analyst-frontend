@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-tailwind-azure-template",
+  "name": "finance-ai-agent-frontend",
   "private": true,
   "version": "0.1.0",
   "scripts": {
@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "engines": {
-    "node": ">=20"
+    "node": "20.x"
   },
   "dependencies": {
     "clsx": "^2.1.1",
