@@ -43,15 +43,11 @@ export default function ChatContainer({ messages, isThinking, className }: ChatC
       {messages.map((m, i) => {
         const isUser = m.sender === "user";
         return (
-          <div key={i} className={clsx("mb-3", isUser ? "text-right" : "text-left")}>
-            <div
-              className={clsx(
-                "inline-block max-w-[80%] px-3 py-2 rounded-lg whitespace-pre-wrap align-top",
-                isUser
-                  ? "bg-gray-900 text-white"
-                  : "bg-gray-100 text-gray-900"
-              )}
-            >
+          <div key={i} className={clsx("mb-3 flex", isUser ? "justify-end" : "justify-start")}>
+            <div className={clsx(
+              "max-w-[80%] px-3 py-2 rounded-lg text-left",
+              isUser ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
+            )}>
               {/* Message content */}
               {isUser ? (
                 // Render user messages as plain text
@@ -93,7 +89,7 @@ export default function ChatContainer({ messages, isThinking, className }: ChatC
                       ),
                     }}
                   >
-                    {m.text || ""}
+                    {m.text}
                   </ReactMarkdown>
                 </div>
               )}
