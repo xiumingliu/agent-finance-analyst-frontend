@@ -5,6 +5,9 @@ import Image from "next/image";
 import type { ChatMessage } from "@/types";
 import clsx from "clsx";
 
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
 type ChatContainerProps = {
   messages: ChatMessage[];
   isThinking: boolean;
@@ -49,8 +52,51 @@ export default function ChatContainer({ messages, isThinking, className }: ChatC
                   : "bg-gray-100 text-gray-900"
               )}
             >
-              {/* Text */}
-              {m.text}
+              {/* Message content */}
+              {isUser ? (
+                // Render user messages as plain text
+                <span>{m.text}</span>
+              ) : (
+                // Render assistant messages as Markdown (GFM tables, lists, etc.)
+                <div className="prose prose-sm max-w-none
+                [&_*code]:break-words [&_pre]:whitespace-pre-wrap">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      // Customize table rendering to be responsive and styled
+                      table: ({ children }) => (
+                        <div className="overflow-x-auto">
+                          <table className="w-full border-collapse text-left">{children}</table>
+                        </div>
+                      ),
+                      // Table Head
+                      thead: ({ children }) => (
+                        <thead className="bg-gray-200/70">{children}</thead>
+                      ),
+                      // Table Header Cell
+                      th: ({ children }) => (
+                        <th className="px-3 py-2 border border-gray-300 font-semibold">
+                          {children}
+                        </th>
+                      ),
+                      // Table Data Cell
+                      td: ({ children }) => (
+                        <td className="px-3 py-2 border border-gray-200 align-top">
+                          {children}
+                        </td>
+                      ),
+                      // Anchor (Hyperlink)
+                      a: ({ href, children }) => (
+                        <a href={href} target="_blank" rel="noopener noreferrer" className="underline">
+                          {children}
+                        </a>
+                      ),
+                    }}
+                  >
+                    {m.text || ""}
+                  </ReactMarkdown>
+                </div>
+              )}
 
               {/* Plot (optional) */}
               {m.plot && (
